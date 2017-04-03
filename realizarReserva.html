@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+   
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+
+<script>
+
+window.onload = function(){
+   $("#reservar").click(enviar);
+  }
+
+ 
+
+
+function enviar() { 
+  var nombre=$("#nombre").val(); 
+  var apellido=$("#apellido").val(); 
+  var placa=$("#placa").val(); 
+  var cedula=$("#cedula").val(); 
+
+  $.ajax({ 
+  async:true, 
+  type: "POST", 
+  dataType: "html", contentType: "application/x-www-form-urlencoded", 
+  url:"guardarReserva.php", 
+  data:"nombre="+nombre+"&apellido="+apellido+"&placa="+placa+"&cedula="+cedula, beforeSend:inicioEnvio, success:llegadaDatos, 
+  timeout:4000, 
+  error:problemas }); 
+  return false; 
+} 
+
+ function inicioEnvio(datos)
+        {
+            $("#respuesta").text(datos);
+        }
+
+        function llegadaDatos(datos)
+        {
+            $("#respuesta").text(datos);
+                       
+        }
+
+        function problemas()
+        {
+            $("#respuesta").text('Problemas en el servidor.');
+        }
+
+
+</script>
+   
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+
+    <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">WebSiteName</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Page 1</a></li>
+          <li><a href="#">Page 2</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+  
+        <label for="cedula">Cédula:</label>
+        <input type="text" class="form-control" id="cedula" name="cedula">
+      </div>
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre">
+      </div>
+      <div class="form-group">
+        <label for="apellido">Apellidos:</label>
+        <input type="text" class="form-control" id="apellido" name="apellido">
+      </div>
+      <div class="form-group">
+        <label for="placa">Placa:</label>
+        <input type="text" class="form-control" id="placa" name="placa">
+      </div>
+      
+     
+
+      <button type="button" id="reservar" class="btn btn-default">REservar</button>
+
+
+<div id="respuesta"></div>
+    
+   
+
+    </body>
+  </html>
